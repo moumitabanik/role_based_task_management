@@ -68,9 +68,11 @@ python manage.py runserver
 
 ## Screenshots
 
-[Sign In Page](https://drive.google.com/file/d/18vJuSYnr85NSJNdKkEGa39zpmYi8KM11/view?usp=sharing)
+[Login Page](https://drive.google.com/file/d/1WD6BwDKBur2bi4QqXzycPhdjbX2VGExd/view?usp=drive_link)
 
-[Register Page](https://drive.google.com/file/d/1Dr_Y2_5G5RdXnC1FaONKjHvDSExLX59q/view?usp=sharing)
+[Admin/Manager Dashboard Page 1](https://drive.google.com/file/d/1nbWmgyWGVBEcQWwkr1n_WtfHYX2LIGpN/view?usp=drive_link)
+
+[Admin/Manager Dashboard Page 2](https://drive.google.com/file/d/1cVL_4TZzq11Cet9T_N7S0LGyGrGYci8d/view?usp=drive_link)
 
 [Products Page](https://drive.google.com/file/d/1by187GYhBmo-Otxwm5UncQgO7LjTpx8F/view?usp=sharing)
 
