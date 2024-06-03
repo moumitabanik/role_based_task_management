@@ -31,6 +31,30 @@ class TaskCreateView(generics.CreateAPIView):
     serializer_class = TaskCreateSerializer
     permission_classes = [IsAuthenticated,IsAdminOrManager]
     
+    def perform_create(self, serializer):
+        task = serializer.save()
+        self.send_notification(task)
+
+    def send_notification(self, task):
+        assigned_user = task.assigned_to
+        admin_manager_users = User.objects.filter(is_staff=True)
+        
+        # Notify assigned user
+        notify.send(
+            self.request.user,
+            recipient=assigned_user,
+            verb=f'You have been assigned a new task: {task.name}',
+            target=task
+        )
+        
+        # Notify admin and manager users
+        notify.send(
+            self.request.user,
+            recipient=admin_manager_users,
+            verb=f'Task {task.name} has been created and assigned to {assigned_user.username}',
+            target=task
+        )
+    
 class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tasks.objects.all()
     serializer_class = TaskSerializer
