@@ -74,13 +74,23 @@ python manage.py runserver
 
 [Admin/Manager Dashboard Page 2](https://drive.google.com/file/d/1cVL_4TZzq11Cet9T_N7S0LGyGrGYci8d/view?usp=drive_link)
 
-[Products Page](https://drive.google.com/file/d/1by187GYhBmo-Otxwm5UncQgO7LjTpx8F/view?usp=sharing)
+[Users Page](https://drive.google.com/file/d/1EE9cGiLAxe6pNnMRkOMDUnDWTo-ul7YD/view?usp=drive_link)
 
-[Products Details Page](https://drive.google.com/file/d/1rS3LLJM6Y-JP1X6u2LxETlgjvV0_odSK/view?usp=sharing)
+[Add User Page](https://drive.google.com/file/d/1KtoKbCtFyw3OZ9m7ztwKgHnjxGpPkTcs/view?usp=drive_link)
 
-[Write a Review](https://drive.google.com/file/d/1G437sUpEJ62kQS_HwaqZYmuSQpWVlSHK/view?usp=sharing)
+[Project Statistics](https://drive.google.com/file/d/1xVUCUp_O3LZ0OL1JkrYbu4hN-o8P7i83/view?usp=drive_link)
 
-[Cart Page](https://drive.google.com/file/d/1oHUSvVz51yQETQVmrQbkZJ6hVrvsA73C/view?usp=sharing)
+[Manage Tasks](https://drive.google.com/file/d/18ENskGK9uHzeFxr1tk7PzztKfSNuxUU3/view?usp=drive_link)
+
+[Add Tasks](https://drive.google.com/file/d/1cbH1dWywVx4VWOnS4TkCV8Mv_gOBpZpH/view?usp=drive_link)
+
+[Manage Projects](https://drive.google.com/file/d/1MNEJG1zZutvvLwIJxzKRagP2VHpWv1jh/view?usp=drive_link)
+
+[Add Projects](https://drive.google.com/file/d/1DS_O4-LK1wRd7YfQ7-Vb1ZpSvTsw9-tt/view?usp=drive_link)
+
+[Notification Page](https://drive.google.com/file/d/1t7E_NJejs0YCE93bf-oi-5KWujRL4Zdu/view?usp=drive_link)
+
+[Log out Button](https://drive.google.com/file/d/1TW2F9HW5Q-7BMsffNLaiTPuLIfvat3L4/view?usp=drive_link)
 
 ## Demo
 
