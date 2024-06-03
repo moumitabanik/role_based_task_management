@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head_title %} Dashboard {% endblock %}
+{% block new_content %}
+<div id="auth-wrapper" class="font-[sans]">
+    <div class="flex flex-col min-h-full p-3 mt-10 justify-between">
+        <div class="p-4 sm:ml-64">
+            <div class="max-w-screen-xl mt-0">
+                <!-- Start coding here -->
+                <div class="flex justify-between items-center pb-2 pt-5 mb:flex-col">
+                    <div class="bg-white relative overflow-hidden">
+                        <div class="w-full p-2 text-left">
+                            <h1 class="text-left pl-2 custom-text-primary custom-header">Project & Task Statistics</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white relative rounded-lg shadow-md sm:rounded-lg overflow-hidden ml-4 mr-4 mt-[10px] border border-gray-300 mb:mx-0">
+                <div class="bg-white relative overflow-hidden">
+                    <div class="w-full p-2 text-left mt-[10px]">
+                        <h1 class="text-left pl-4 custom-text-primary custom-header-loan-details">Project & Task Statistics</h1>
+                    </div>
+
+                    <div class="relative flex justify-end items-center space-x-4 w-[98%] mr-[20px] alg:w-[100%] alg:justify-center alg:mr-0 mb:w-[100%] mb:justify-center mb:flex-col mb:mr-0">
+                        <div date-rangepicker
+                        datepicker-format="yyyy/mm/dd" class="flex items-center">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input name="start" type="text" id="startDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date start">
+                            </div>
+                            <span class="mx-4 text-gray-500">to</span>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input name="end" type="text" id="endDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date end">
+                            </div>
+                            <button
+                                  class="ml-2 px-2 py-2 bg-gray-200 text-[12px] text-gray-800 rounded-md hover:bg-gray-300 transition duration-300"
+                                  id="applyBtn"
+                            >
+                                  Apply
+                            </button>
+                            <button
+                                class="ml-2 px-2 py-2 bg-gray-200 text-[12px] text-gray-800 rounded-md hover:bg-gray-300 transition duration-300"
+                                id="clearDate"
+                            >
+                                  Clear
+                            </button>
+                        </div>
+                        <div class="relative inline-block text-left">
+                        <div id="filterContainer">
+                            <select
+                            id="projectFilter"
+                            class="text-[#126556] text-sm rounded-lg border border-[#126556] focus:ring-1 focus:ring-[#126556] focus:border-green-400 cursor-pointer"
+                            >
+                            <option value="all_projects" selected>
+                                All Projects
+                            </option>
+                            
+                            </select>
+                        </div>
+                        </div>
+                    </div>
+                    
+                </div>
+         
+         
+         
+         
+                <div class="flex flex-col sm:flex-row justify-between pr-2 items-center p-4">
+                    <!-- Chart Container -->
+                    <div class="min-w-[100%] min-h-[40%] p-2 h-[423px] w-[423.6px] flex justify-center ">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <!-- Legend Container -->
+                    <div class="p-2 w-full " id="legend-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block js_cdn %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem('token');
+
+    // Function to format date as YYYY-MM-DD
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Get today's date
+    const today = new Date();
+    const defaultDate = formatDate(today);
+    const currentDate = today.toLocaleDateString('en-GB');
+
+    // Initialize Flowbite Datepicker with default value
+    const startInput = document.getElementById('startDate');
+    const endInput = document.getElementById('endDate');
+    startInput.value = defaultDate;
+    endInput.value = defaultDate;
+
+    // Select the "Apply" button
+    const applyButton = document.getElementById('applyBtn');
+    const clearButton = document.getElementById('clearDate');
+
+    // Add event listener to the "Apply" button
+    applyButton.addEventListener('click', function() {
+        const startDate = formatDate(new Date(startInput.value));
+        const endDate = formatDate(new Date(endInput.value));
+        const projectFilter = document.getElementById('projectFilter').value;
+        fetchData(startDate, endDate, projectFilter);
+    });
+
+    // Add event listener to the "Clear" button
+    clearButton.addEventListener('click', function() {
+        startInput.value = defaultDate;
+        endInput.value = defaultDate;
+        fetchData(defaultDate, defaultDate, 'all_projects');
+    });
+
+    function fetchData(start, end, projectId) {
+        fetch(`${base_url}/projects/get-project-data/?start_date=${start}&end_date=${end}&project_id=${projectId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const todoCount = data[projectId].todo_tasks_count;
+            const inprogressCount = data[projectId].inprogress_tasks_count;
+            const completedCount = data[projectId].completed_tasks_count;
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            if (window.myDoughnutChart) {
+                window.myDoughnutChart.destroy(); // Destroy the existing chart instance
+            }
+            window.myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Todo', 'In Progress', 'Completed'],
+                    datasets: [{
+                        label: 'Project Statistics',
+                        data: [todoCount, inprogressCount, completedCount],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Manually generate legend
+            const legendContainer = document.getElementById('legend-container');
+            legendContainer.innerHTML = window.myDoughnutChart.generateLegend();
+        })
+        .catch(error => console.error('Error fetching chart data:', error));
+    }
+
+    // Fetch initial data
+    fetchData(defaultDate, defaultDate, 'all_projects');
+
+    // Fetch project data and populate select options
+    fetch('http://127.0.0.1:8000/projects/projects/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Token ${token}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const projectFilter = document.getElementById('projectFilter');
+
+        // Populate select options with project names
+        data.forEach(project => {
+            const option = document.createElement('option');
+            option.value = project.id;
+            option.textContent = project.name;
+            projectFilter.appendChild(option);
+        });
+
+        // Add event listener to project filter
+        projectFilter.addEventListener('change', function() {
+            const startDate = formatDate(new Date(startInput.value));
+            const endDate = formatDate(new Date(endInput.value));
+            const projectId = this.value;
+            fetchData(startDate, endDate, projectId);
+        });
+    })
+    .catch(error => console.error('Error fetching project data:', error));
+});
+</script>
+
+
+{% endblock %}
+{% endblock %}

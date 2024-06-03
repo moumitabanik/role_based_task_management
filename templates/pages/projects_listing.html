@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% load static %} {% block head_title %}
+Manage Projects
+{% endblock %}
+{% block new_content %}
+<div id="auth-wrapper" class="font-[sans]">
+ <div class="p-4 sm:ml-64">
+   <div class="max-w-screen-xl mt-16">
+     <!-- Start coding here -->
+     <div class="bg-whiterelative overflow-hidden">
+       <div class="w-full p-2 text-left">
+         <h1
+           class="text-left pl-4 custom-header"
+         >
+           Manage Projects
+         </h1>
+       </div>
+     </div>
+   </div>
+   <div class="flex items-center justify-between">
+     <div class="pl-5 flex items-center">
+       <!-- Add User Button on the Right -->
+       <div class="relative mt-[20px]">
+           <button
+               id="addProject"
+               type="button"
+               class="mb:ml-0 mb:text-[11px] px-[22.5px] py-2 text-[12px] font-semibold text-center inline-flex items-center text-[#126556] border border-[#B8EBE1] bg-[#B8EBE1] focus:outline-none rounded mr-2 mb-2 "
+           >
+               Add Project
+           </button>
+       </div>
+     </div>
+   </div>
+    <div id="projectsTable" class="">
+     <div class="overflow-x-auto pl-4 pr-4 pb-4">
+       <table
+         id="allprojectsTable"
+         class="text-[0.72rem] text-gray-500 shadow-md rounded-lg w-full mb:text-[10px]"
+       >
+         <thead
+           class="whitespace-nowrap text-gray-700 uppercase bg-gray-50 text-left"
+         >
+           <tr>
+             <th scope="col" class="px-4 py-4">SL/No.</th>
+             <th scope="col" class="px-4 py-4">Project Name</th>
+             <th scope="col" class="px-4 py-4">Project Description</th>
+             <th scope="col" class="px-4 py-4">Status</th>
+           </tr>
+         </thead>
+         <tbody class="whitespace-nowrap">
+
+
+         </tbody>
+       </table>
+     </div>
+   </div>
+  </div>
+</div>
+<!-- popup modal -->
+{% include "pages/add_project.html"%}
+
+
+{% endblock %}
+
+
+{% block js_cdn %}
+<script src="{% static 'js/add_project.js' %}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", (e) => {
+    e.preventDefault();
+    const projectsTableId = document.getElementById("allprojectsTable");
+    const projectsTable = new DataTable(projectsTableId, {
+      lengthChange: false,
+      serverSide: true,
+      processing: true,
+      ajax: {
+        url: `${base_url}/projects/projects/`,
+        type: "GET",
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        data: function (d) {
+          return [];
+        },
+        dataSrc: function (json) {
+          return json
+        },
+      },
+      order: [[1, "asc"]],
+      info: false, // Remove the "Showing 1 to 3 of 3 entries" text
+      searching: false,
+      paging: false,
+      columns: [
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return meta.row; // For sorting or other types, return the row index
+          },
+        },
+        { data: "name"},
+        { data: "description"},
+        { data: "status"},
+      ],
+      dom: "QBfrtip",
+      buttons:[
+        {}
+      ]
+    });
+     
+    });
+</script>
+{% endblock %}
+
+
+

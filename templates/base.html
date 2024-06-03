@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="{% static 'css\style.css' %}">
+   <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+   <!-- Add DataTables CSS -->
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+   
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Flowbite CSS -->
+  <link href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" rel="stylesheet">
+  
+   <title>{% block head_title %} {% endblock %}</title>
+    
+
+
+ </head>
+ <body class="max-h-full bg-white overflow-auto">
+    
+   <!-- use below code if user is authenticated -->
+   <div id="auth-wrapper" >
+     {% include 'navbar/dashboard-sidebar-nav.html'%}
+     {% block new_content %}{% endblock %}
+
+
+   </div>
+  
+   <!-- common js files include here -->
+   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+   
+
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+
+     {% block js %}
+     <script src="{% static 'js/base_url.js' %}"></script>
+     {% endblock %}
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+   {% block js_cdn %}
+  
+   <!-- custom sytles for datatable -->
+   {% endblock %}
+ </body>
+</html>
+
+
+
+
+
