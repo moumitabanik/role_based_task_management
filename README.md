@@ -7,7 +7,7 @@ This Django application implements a robust role-based authentication system wit
 
 ## Getting Started
 
-To get started with the E-commerce website, follow these steps:
+To get started with the Role Based Task Management Website, follow these steps:
 
 - Clone the repository to your local machine.
 ```bash
@@ -16,7 +16,7 @@ To get started with the E-commerce website, follow these steps:
 ```
 - Navigate to the Project Directory: Change into the project directory.
 ```bash
-cd e-commerce
+cd role_based_task_management
 ```
 - Create a Virtual Environment: Create a new virtual environment for the project.
 ``` bash
@@ -63,7 +63,7 @@ python manage.py runserver
 
 **Frontend:** HTML5, CSS3, Vanila JS, TailwindCss, FlowBite, DataTable
 
-**Backend:** Python, Django, REST APIs
+**Backend:** Python, Django, REST APIs, MySQL
 
 
 ## Screenshots
